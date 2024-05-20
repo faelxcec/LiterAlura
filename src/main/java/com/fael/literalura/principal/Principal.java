@@ -34,6 +34,7 @@ public class Principal {
                         3 - Listar Autores
                         4 - Listar Autores Vivos Em Um Determinado Ano
                         5 - Listar Livros Por Idioma
+                        6 - Top 10 Livros mais baixados
                         
                         0 - Sair
                         """;
@@ -56,6 +57,9 @@ public class Principal {
                 case 5:
                     livrosPorIdioma();
                     break;
+                case 6:
+                    top10();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -63,6 +67,11 @@ public class Principal {
                     System.out.println("Opção inválida");
             }
         }
+    }
+
+    private void top10() {
+        List<Livro> list = repositorio.findTop10ByOrderByDownloadsDesc();
+        list.forEach(System.out::println);
     }
 
     private void livrosPorIdioma() {
@@ -114,6 +123,7 @@ public class Principal {
             }
             Livro livro = new Livro(primeiroLivro);
             livro.setAutores(autorExistente);
+            System.out.println(livro);
             repositorio.save(livro);
         }
         else{
