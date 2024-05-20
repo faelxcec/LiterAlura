@@ -33,6 +33,7 @@ public class Principal {
                         2 - Listar Livros Registrados
                         3 - Listar Autores
                         4 - Listar Autores Vivos Em Um Determinado Ano
+                        5 - Listar Livros Por Idioma
                         
                         0 - Sair
                         """;
@@ -52,6 +53,9 @@ public class Principal {
                 case 4:
                     listarAutoresVivosEm();
                     break;
+                case 5:
+                    livrosPorIdioma();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -61,12 +65,28 @@ public class Principal {
         }
     }
 
+    private void livrosPorIdioma() {
+        var menu2 = """
+                Insira o idioma para busca:
+                en- ingles
+                pt- portugues
+                """;
+        System.out.println(menu2);
+        var idioma = leitura.nextLine();
+        List<Livro> livroList = repositorio.livroPorIdioma(idioma);
+        if (livroList.size() > 0) {
+            livroList.forEach(System.out::println);
+        }
+        else{
+            System.out.println("Livro não encontrado");
+        }
+    }
+
     private void listarAutoresVivosEm() {
         System.out.println("Digite um ano");
         var ano = leitura.nextLong();
         List<Autor> list = repositorioAutor.listarAutoresVivos(ano);
         list.forEach(System.out::println);
-
     }
 
     private void listarAutores() {
